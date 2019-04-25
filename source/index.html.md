@@ -1,14 +1,13 @@
 ---
-title: API Reference
+title: SMSO Api Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
-  - python
-  - javascript
+  - php
+
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='https://app.smso.ro/'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -19,80 +18,92 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the SMSO API! You can use our API to access SMSO API endpoints.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+We have language bindings in Shell, PHP, JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 # Authentication
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
 
 ```shell
 # With shell, you can just pass the correct header with each request
 curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+  -H "X-Authorization: API-KEY"
 ```
 
-```javascript
-const kittn = require('kittn');
+```php
+<?php
 
-let api = kittn.authorize('meowmeowmeow');
+// via file_get_contents
+$opts = [
+    "http" => [
+        "method" => "POST",
+        "header" => "X-Authorization: API_KEY"
+    ]
+];
+
+$context = stream_context_create($opts);
+
+$content = file_get_contents('https://app.smso.ro/api/v1/senders', false, $context);
+
+var_dump($content);
+
+// via guzzle
+use GuzzleHttp\Client;
+
+$client = new Client;
+$client->request('POST', 'https://app.smso.ro/api/v1/senders', [
+        'headers' => [
+            'X-Authorization' => 'API_KEY',
+        ],
+        'form_params' => [],
+    ]);
+
+
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+> Make sure to replace `API-KEY` with your API key.
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+SMSO uses API keys to allow access to the API. You can register a new SMSO API key at our [developer portal](https://app.smso.ro/developers/api).
 
-`Authorization: meowmeowmeow`
+SMSO expects for the API key to be included in all API requests to the server in a header that looks like the following:
+
+`X-Authorization: API-KEY`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>API-KEY</code> with your personal API key.
 </aside>
 
-# Kittens
+# Sendes
 
-## Get All Kittens
+## Get All Senders available
 
-```ruby
-require 'kittn'
+```curl
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
 ```
 
-```python
-import kittn
+```php
+<?php
+use GuzzleHttp\Client;
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+$client = new Client;
+$client->request('POST', 'https://app.smso.ro/api/v1/senders', [
+        'headers' => [
+            'X-Authorization' => 'API_KEY',
+        ],
+        'form_params' => [
+            'body' => $message->body,
+            'receiver' => $number,
+            'uuid' => $message->uuid,
+            'priority' => $priority,
+            'network' => $network,
+            'sender' => $customSender,
+        ],
+    ]);
 
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
 ```
 
 > The above command returns JSON structured like this:
@@ -138,7 +149,7 @@ Remember — a happy kitten is an authenticated kitten!
 ```ruby
 require 'kittn'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+api = SMSO::APIClient.authorize!('meowmeowmeow')
 api.kittens.get(2)
 ```
 
@@ -192,7 +203,7 @@ ID | The ID of the kitten to retrieve
 ```ruby
 require 'kittn'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+api = SMSO::APIClient.authorize!('meowmeowmeow')
 api.kittens.delete(2)
 ```
 
