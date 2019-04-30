@@ -8,8 +8,6 @@ curl --request POST --header 'x-authorization: smso-api-key' "https://app.smso.r
   -d "sender=1" \
   -d "to=40726459188" \
   -d "body=Testing"
-     
-  
 ```
 
 ```php
