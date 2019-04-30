@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;php&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;php&quot;,&quot;javascript&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -213,6 +213,7 @@
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
               <a href="#" data-language-name="php">php</a>
+              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -226,10 +227,24 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
           </li>
           <li>
-            <a href="#sendes" class="toc-h1 toc-link" data-title="Sendes">Sendes</a>
+            <a href="#senders" class="toc-h1 toc-link" data-title="Senders">Senders</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-senders-available" class="toc-h2 toc-link" data-title="Get All Senders available">Get All Senders available</a>
+                    <a href="#get-the-available-senders" class="toc-h2 toc-link" data-title="Get The Available Senders">Get The Available Senders</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                  </li>
+                  <li>
+                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#send-a-sms-message" class="toc-h1 toc-link" data-title="Send A SMS message">Send A SMS message</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#sending-a-message" class="toc-h2 toc-link" data-title="Sending a message">Sending a message</a>
                   </li>
                   <li>
                     <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
@@ -260,21 +275,20 @@
 <p>To authorize, use this code:</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"X-Authorization: API-KEY"</span>
+curl -H <span class="s2">"X-Authorization: smso-api-key"</span>  <span class="s2">"https://app.smso.ro/api/v1/"</span> 
 </code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 
 <span class="c1">// via file_get_contents
 </span><span class="nv">$opts</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">"http"</span> <span class="o">=&gt;</span> <span class="p">[</span>
         <span class="s2">"method"</span> <span class="o">=&gt;</span> <span class="s2">"POST"</span><span class="p">,</span>
-        <span class="s2">"header"</span> <span class="o">=&gt;</span> <span class="s2">"X-Authorization: API_KEY"</span>
+        <span class="s2">"header"</span> <span class="o">=&gt;</span> <span class="s2">"X-Authorization: smso-api-key"</span>
     <span class="p">]</span>
 <span class="p">];</span>
 
 <span class="nv">$context</span> <span class="o">=</span> <span class="nb">stream_context_create</span><span class="p">(</span><span class="nv">$opts</span><span class="p">);</span>
 
-<span class="nv">$content</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="s1">'https://app.smso.ro/api/v1/senders'</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">$context</span><span class="p">);</span>
+<span class="nv">$content</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="s1">'https://app.smso.ro/api/v1/'</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">$context</span><span class="p">);</span>
 
 <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$content</span><span class="p">);</span>
 
@@ -282,71 +296,66 @@ curl <span class="s2">"api_endpoint_here"</span>
 </span><span class="k">use</span> <span class="nx">GuzzleHttp\Client</span><span class="p">;</span>
 
 <span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client</span><span class="p">;</span>
-<span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span> <span class="s1">'https://app.smso.ro/api/v1/senders'</span><span class="p">,</span> <span class="p">[</span>
-        <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">'X-Authorization'</span> <span class="o">=&gt;</span> <span class="s1">'API_KEY'</span><span class="p">,</span>
-        <span class="p">],</span>
-        <span class="s1">'form_params'</span> <span class="o">=&gt;</span> <span class="p">[],</span>
-    <span class="p">]);</span>
+<span class="nv">$request</span> <span class="o">=</span>  <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span> <span class="s1">'https://app.smso.ro/api/v1/'</span><span class="p">,</span> <span class="p">[</span>
+    <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="s1">'X-Authorization'</span> <span class="o">=&gt;</span> <span class="s1">'nece'</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">]);</span>
 
+<span class="nb">var_dump</span><span class="p">(</span><span class="nb">json_decode</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getBody</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getContents</span><span class="p">()));</span>
 
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// soon</span>
 </code></pre>
 <blockquote>
 <p>Make sure to replace <code>API-KEY</code> with your API key.</p>
 </blockquote>
 
-<p>SMSO uses API keys to allow access to the API. You can register a new SMSO API key at our <a href="https://app.smso.ro/developers/api">developer portal</a>.</p>
+<p>SMSO uses API keys to allow access to the API. You can register a new SMSO API key at our <a href="https://app.smso.ro/developers/api">developer page</a>.</p>
 
 <p>SMSO expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
 
-<p><code>X-Authorization: API-KEY</code></p>
+<p><code>X-Authorization: smso-api-key</code></p>
 
 <aside class="notice">
 You must replace <code>API-KEY</code> with your personal API key.
 </aside>
-<h1 id='sendes'>Sendes</h1><h2 id='get-all-senders-available'>Get All Senders available</h2><pre class="highlight plaintext"><code>
+<h1 id='senders'>Senders</h1><h2 id='get-the-available-senders'>Get The Available Senders</h2><pre class="highlight plaintext"><code>curl -H "X-Authorization: smso-api-key"  "https://app.smso.ro/api/v1/senders" 
 </code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">GuzzleHttp\Client</span><span class="p">;</span>
 
 <span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client</span><span class="p">;</span>
-<span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span> <span class="s1">'https://app.smso.ro/api/v1/senders'</span><span class="p">,</span> <span class="p">[</span>
+<span class="nv">$request</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span> <span class="s1">'https://app.smso.ro/api/v1/senders'</span><span class="p">,</span> <span class="p">[</span>
         <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">'X-Authorization'</span> <span class="o">=&gt;</span> <span class="s1">'API_KEY'</span><span class="p">,</span>
-        <span class="p">],</span>
-        <span class="s1">'form_params'</span> <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">'body'</span> <span class="o">=&gt;</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">body</span><span class="p">,</span>
-            <span class="s1">'receiver'</span> <span class="o">=&gt;</span> <span class="nv">$number</span><span class="p">,</span>
-            <span class="s1">'uuid'</span> <span class="o">=&gt;</span> <span class="nv">$message</span><span class="o">-&gt;</span><span class="na">uuid</span><span class="p">,</span>
-            <span class="s1">'priority'</span> <span class="o">=&gt;</span> <span class="nv">$priority</span><span class="p">,</span>
-            <span class="s1">'network'</span> <span class="o">=&gt;</span> <span class="nv">$network</span><span class="p">,</span>
-            <span class="s1">'sender'</span> <span class="o">=&gt;</span> <span class="nv">$customSender</span><span class="p">,</span>
+            <span class="s1">'X-Authorization'</span> <span class="o">=&gt;</span> <span class="s1">'smso-api-key'</span><span class="p">,</span>
         <span class="p">],</span>
     <span class="p">]);</span>
-
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// soon </span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+   </span><span class="p">{</span><span class="w">  
+     </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"Notify"</span><span class="p">,</span><span class="w">
+     </span><span class="s2">"pricePerMessage"</span><span class="p">:</span><span class="mi">3</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"1847"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pricePerMessage"</span><span class="p">:</span><span class="mi">3</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="mi">36</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"name"</span><span class="p">:</span><span class="s2">"0722334455"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"pricePerMessage"</span><span class="p">:</span><span class="mi">2</span><span class="w">
+   </span><span class="p">},</span><span class="w">
+   </span><span class="err">...</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
+<p>This endpoint retrieves all the available senders in the the team.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
+<p><code>GET https://app.smso.ro/api/v1/senders</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -369,7 +378,163 @@ You must replace <code>API-KEY</code> with your personal API key.
 
 <aside class="success">
 Remember — a happy kitten is an authenticated kitten!
-</aside>
+</aside>  
+<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="no">SMSO</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
+  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves a specific kitten.</p>
+
+<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the kitten to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="no">SMSO</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
+  -X DELETE
+  -H <span class="s2">"Authorization: meowmeowmeow"</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint deletes a specific kitten.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the kitten to delete</td>
+</tr>
+</tbody></table>
+<h1 id='send-a-sms-message'>Send A SMS message</h1><h2 id='sending-a-message'>Sending a message</h2><pre class="highlight shell tab-shell"><code>
+curl --request POST --header <span class="s1">'x-authorization: nece'</span> <span class="s2">"https://app.smso.ro/api/v1/send"</span> <span class="se">\</span>
+  -d <span class="s2">"sender=1"</span> <span class="se">\</span>
+  -d <span class="s2">"to=40726459188"</span> <span class="se">\</span>
+  -d <span class="s2">"body=Testing"</span>
+
+
+</code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+<span class="k">use</span> <span class="nx">GuzzleHttp\Client</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client</span><span class="p">;</span>
+<span class="nv">$request</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span> <span class="s1">'https://app.smso.ro/api/v1/send'</span><span class="p">,</span> <span class="p">[</span>
+        <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">'X-Authorization'</span> <span class="o">=&gt;</span> <span class="s1">'smso-api-key'</span><span class="p">,</span>
+        <span class="p">],</span>
+       <span class="s1">'form_params'</span> <span class="o">=&gt;</span> <span class="p">[</span>
+           <span class="s1">'to'</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
+           <span class="s1">'body'</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
+           <span class="s1">'sender'</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
+       <span class="p">],</span>
+<span class="p">]);</span>
+
+<span class="nb">var_dump</span><span class="p">(</span><span class="nb">json_decode</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getBody</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getContents</span><span class="p">()));</span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// soon </span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"responseToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint sends an SMS Message</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://app.smso.ro/api/v1/send</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Required?</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>to</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>sender</td>
+<td>Yes</td>
+<td>The ID of the sender</td>
+</tr>
+<tr>
+<td>body</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>webhook_status</td>
+<td>No</td>
+<td>Webhook for receiving the SMS message status</td>
+</tr>
+<tr>
+<td>webhook_received</td>
+<td>No</td>
+<td>Webhook for receiving the SMS message reply</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+Remember — a happy kitten is an authenticated kitten!
+</aside>  
 <h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
 
 <span class="n">api</span> <span class="o">=</span> <span class="no">SMSO</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
@@ -516,6 +681,7 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
                 <a href="#" data-language-name="php">php</a>
+                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
