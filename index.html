@@ -243,6 +243,17 @@
               </ul>
           </li>
           <li>
+            <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#message-status" class="toc-h2 toc-link" data-title="Message status">Message status</a>
+                  </li>
+                  <li>
+                    <a href="#receiving-messages" class="toc-h2 toc-link" data-title="Receiving messages">Receiving messages</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
       </ul>
@@ -353,7 +364,7 @@ Remember — a happy message is an authenticated message!
 <h1 id='send-a-sms-message'>Send A SMS message</h1><h2 id='sending-a-message'>Sending a message</h2><pre class="highlight shell tab-shell"><code>
 curl --request POST --header <span class="s1">'x-authorization: smso-api-key'</span> <span class="s2">"https://app.smso.ro/api/v1/send"</span> <span class="se">\</span>
   -d <span class="s2">"sender=1"</span> <span class="se">\</span>
-  -d <span class="s2">"to=40726459188"</span> <span class="se">\</span>
+  -d <span class="s2">"to=+40722334455"</span> <span class="se">\</span>
   -d <span class="s2">"body=Testing"</span>
 
 
@@ -407,7 +418,12 @@ curl --request POST --header <span class="s1">'x-authorization: smso-api-key'</s
 <tr>
 <td>body</td>
 <td>Yes</td>
-<td></td>
+<td>Contents of the message</td>
+</tr>
+<tr>
+<td>webhook</td>
+<td>No</td>
+<td>Identical to webhook_status, preserved for legacy purposes</td>
 </tr>
 <tr>
 <td>webhook_status</td>
@@ -422,8 +438,156 @@ curl --request POST --header <span class="s1">'x-authorization: smso-api-key'</s
 </tbody></table>
 
 <aside class="success">
-Remember — check the webhook for the complete detals on the message.
+Remember — check the webhook for the complete detals on the message. [Webhook documentation](#webhooks)
 </aside>  
+<h1 id='webhooks'>Webhooks</h1><h2 id='message-status'>Message status</h2><pre class="highlight shell tab-shell"><code>
+<span class="c"># use this command to emulate a webhopok</span>
+
+curl --request POST <span class="s2">"https://your-server.com/webhooks/smso"</span> <span class="se">\</span>
+  -d <span class="s2">"uuid=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span> <span class="se">\</span>
+  -d <span class="s2">"status=sent"</span> <span class="se">\</span>
+  -d <span class="s2">"sent_at=2019-05-01 12:30:09"</span> <span class="se">\</span>
+  -d <span class="s2">"delivered_at=2019-05-01 12:20:09"</span> <span class="se">\</span>
+  -d <span class="s2">"receiver['number']=+40722334455"</span> <span class="se">\</span>
+  -d <span class="s2">"receiver['mcc']=226"</span> <span class="se">\</span>
+  -d <span class="s2">"receiver['mnc']=03"</span>
+
+</code></pre><pre class="highlight php tab-php"><code>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// soon </span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+</span></code></pre>
+<p>This is an endpoint on your application side that handles the status of the message.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://your-server.com/webhooks/smso</code></p>
+
+<aside class="notice">
+Remember that webhooks can be set up either in your team's account or per message sent.
+</aside>  
+ 
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Can be empty?</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>uuid</td>
+<td>No</td>
+<td>Uuid received from sending the message</td>
+</tr>
+<tr>
+<td>status</td>
+<td>No</td>
+<td>Message status</td>
+</tr>
+<tr>
+<td>sent_at</td>
+<td>No</td>
+<td>Time sent to the network</td>
+</tr>
+<tr>
+<td>delivered_at</td>
+<td>Yes</td>
+<td>Time delivered to phone</td>
+</tr>
+<tr>
+<td>receiver[&#39;number&#39;]</td>
+<td>No</td>
+<td>Receiving number in E.164 Format.</td>
+</tr>
+<tr>
+<td>receiver[&#39;mcc&#39;]</td>
+<td>No</td>
+<td>Mobile Country Code</td>
+</tr>
+<tr>
+<td>receiver[&#39;mnc&#39;]</td>
+<td>No</td>
+<td>Mobile Network Code</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+Remember: All dates are in UTC. 
+</aside>
+<h2 id='receiving-messages'>Receiving messages</h2><pre class="highlight shell tab-shell"><code>
+<span class="c"># use this command to emulate a webhopok</span>
+
+curl --request POST <span class="s2">"https://your-server.com/webhooks/smso"</span> <span class="se">\</span>
+  -d <span class="s2">"body=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span> <span class="se">\</span>
+  -d <span class="s2">"replied_to=sent"</span> <span class="se">\</span>
+  -d <span class="s2">"received_at=2019-05-01 12:30:09"</span> <span class="se">\</span>
+  -d <span class="s2">"sender['number']=+40722334455"</span> <span class="se">\</span>
+  -d <span class="s2">"sender['mcc']=226"</span> <span class="se">\</span>
+  -d <span class="s2">"sender['mnc']=03"</span>
+
+</code></pre><pre class="highlight php tab-php"><code>// soon 
+
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// soon </span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+</span></code></pre>
+<p>This is an endpoint on your application side that handles receiving messages.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST https://your-server.com/webhooks/smso</code></p>
+
+<aside class="notice">
+Remember that webhooks can be set up either in your team's account or per message sent.
+</aside>  
+ 
+<h3 id='query-parameters-2'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Can be empty?</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>body</td>
+<td>No</td>
+<td>Contents of the message</td>
+</tr>
+<tr>
+<td>replied_to</td>
+<td>Yes</td>
+<td>Uuid of the message that the number received and is now responding to</td>
+</tr>
+<tr>
+<td>received_at</td>
+<td>No</td>
+<td>Time the message was received</td>
+</tr>
+<tr>
+<td>sender[&#39;number&#39;]</td>
+<td>No</td>
+<td>Sender number in E.164 Format.</td>
+</tr>
+<tr>
+<td>sender[&#39;mcc&#39;]</td>
+<td>No</td>
+<td>Mobile Country Code</td>
+</tr>
+<tr>
+<td>sender[&#39;mnc&#39;]</td>
+<td>No</td>
+<td>Mobile Network Code</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+Remember: All dates are in UTC. 
+</aside>
+  
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
 This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
