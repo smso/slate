@@ -328,7 +328,7 @@ You must replace <code>API-KEY</code> with your personal API key.
             <span class="s1">'X-Authorization'</span> <span class="o">=&gt;</span> <span class="s1">'smso-api-key'</span><span class="p">,</span>
         <span class="p">],</span>
     <span class="p">]);</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// soon </span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// nothing yet </span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -362,7 +362,7 @@ You must replace <code>API-KEY</code> with your personal API key.
 Remember — a happy message is an authenticated message!
 </aside>  
 <h1 id='send-a-sms-message'>Send A SMS message</h1><h2 id='sending-a-message'>Sending a message</h2><pre class="highlight shell tab-shell"><code>
-curl --request POST --header <span class="s1">'x-authorization: smso-api-key'</span> <span class="s2">"https://app.smso.ro/api/v1/send"</span> <span class="se">\</span>
+curl --request POST --header <span class="s1">'X-Authorization: smso-api-key'</span> <span class="s2">"https://app.smso.ro/api/v1/send"</span> <span class="se">\</span>
   -d <span class="s2">"sender=1"</span> <span class="se">\</span>
   -d <span class="s2">"to=+40722334455"</span> <span class="se">\</span>
   -d <span class="s2">"body=Testing"</span>
@@ -384,7 +384,7 @@ curl --request POST --header <span class="s1">'x-authorization: smso-api-key'</s
 <span class="p">]);</span>
 
 <span class="nb">var_dump</span><span class="p">(</span><span class="nb">json_decode</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getBody</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getContents</span><span class="p">()));</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// soon </span>
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// nothing yet</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -441,24 +441,23 @@ curl --request POST --header <span class="s1">'x-authorization: smso-api-key'</s
 Remember — check the webhook for the complete detals on the message. [Webhook documentation](#webhooks)
 </aside>  
 <h1 id='webhooks'>Webhooks</h1><h2 id='message-status'>Message status</h2><pre class="highlight shell tab-shell"><code>
-<span class="c"># use this command to emulate a webhopok</span>
+<span class="c"># use this command to simulate an incomming request to test yout webhook</span>
 
 curl --request POST <span class="s2">"https://your-server.com/webhooks/smso"</span> <span class="se">\</span>
   -d <span class="s2">"uuid=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span> <span class="se">\</span>
   -d <span class="s2">"status=sent"</span> <span class="se">\</span>
   -d <span class="s2">"sent_at=2019-05-01 12:30:09"</span> <span class="se">\</span>
   -d <span class="s2">"delivered_at=2019-05-01 12:20:09"</span> <span class="se">\</span>
-  -d <span class="s2">"receiver['number']=+40722334455"</span> <span class="se">\</span>
-  -d <span class="s2">"receiver['mcc']=226"</span> <span class="se">\</span>
-  -d <span class="s2">"receiver['mnc']=03"</span>
-
-</code></pre><pre class="highlight php tab-php"><code>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// soon </span>
+  -d <span class="s2">"receiver[number]=+40722334455"</span> <span class="se">\</span>
+  -d <span class="s2">"receiver[mcc]=226"</span> <span class="se">\</span>
+  -d <span class="s2">"receiver[mnc]=03"</span>
+</code></pre><pre class="highlight php tab-php"><code>// nothing yet 
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// nothing yet </span>
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>You can use an app like <a href="https://postb.in">postb.in</a> to test incoming requests.</p>
 </blockquote>
-<pre class="highlight json tab-json"><code><span class="w">
+<pre class="highlight json tab-json"><code><span class="err">//</span><span class="w"> </span><span class="err">no</span><span class="w"> </span><span class="err">output</span><span class="w">
 </span></code></pre>
 <p>This is an endpoint on your application side that handles the status of the message.</p>
 <h3 id='http-request'>HTTP Request</h3>
@@ -520,8 +519,8 @@ Remember: All dates are in UTC.
 <span class="c"># use this command to emulate a webhopok</span>
 
 curl --request POST <span class="s2">"https://your-server.com/webhooks/smso"</span> <span class="se">\</span>
-  -d <span class="s2">"body=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span> <span class="se">\</span>
-  -d <span class="s2">"replied_to=sent"</span> <span class="se">\</span>
+  -d <span class="s2">"body=Nu raspunzi la sms..."</span> <span class="se">\</span>
+  -d <span class="s2">"replied_to=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span> <span class="se">\</span>
   -d <span class="s2">"received_at=2019-05-01 12:30:09"</span> <span class="se">\</span>
   -d <span class="s2">"sender['number']=+40722334455"</span> <span class="se">\</span>
   -d <span class="s2">"sender['mcc']=226"</span> <span class="se">\</span>
@@ -532,7 +531,7 @@ curl --request POST <span class="s2">"https://your-server.com/webhooks/smso"</sp
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// soon </span>
 </code></pre>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>You can use an app like https://postb.in/ to test incoming requests.</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w">
 </span></code></pre>
@@ -554,7 +553,7 @@ Remember that webhooks can be set up either in your team's account or per messag
 </thead><tbody>
 <tr>
 <td>body</td>
-<td>No</td>
+<td>Yess</td>
 <td>Contents of the message</td>
 </tr>
 <tr>
@@ -584,7 +583,7 @@ Remember that webhooks can be set up either in your team's account or per messag
 </tr>
 </tbody></table>
 
-<aside class="success">
+<aside class="success"> 
 Remember: All dates are in UTC. 
 </aside>
   
@@ -602,48 +601,20 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 </tr>
 </thead><tbody>
 <tr>
+<td>200</td>
+<td>OK</td>
+</tr>
+<tr>
 <td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
+<td>Bad Request -- Your request is invalid. See errors attached.</td>
 </tr>
 <tr>
 <td>401</td>
 <td>Unauthorized -- Your API key is wrong.</td>
 </tr>
 <tr>
-<td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td>402</td>
+<td>Payment Required -- You don&#39;t have enough credit to send the message.</td>
 </tr>
 </tbody></table>
 
