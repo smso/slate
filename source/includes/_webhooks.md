@@ -4,32 +4,32 @@
 
 ```shell
 
-# use this command to emulate a webhopok
+# use this command to simulate an incomming request to test yout webhook
 
 curl --request POST "https://your-server.com/webhooks/smso" \
   -d "uuid=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" \
   -d "status=sent" \
   -d "sent_at=2019-05-01 12:30:09" \
   -d "delivered_at=2019-05-01 12:20:09" \
-  -d "receiver['number']=+40722334455" \
-  -d "receiver['mcc']=226" \
-  -d "receiver['mnc']=03"
-  
+  -d "receiver[number]=+40722334455" \
+  -d "receiver[mcc]=226" \
+  -d "receiver[mnc]=03"
 ```
 
 ```php
-
+// nothing yet 
 ```
 
 ```javascript
-// soon 
+// nothing yet 
 ```
 
-> The above command returns JSON structured like this:
+> You can use an app like [postb.in](https://postb.in) to test incoming requests.
 
 ```json
-
+// no output
 ```
+
 
 This is an endpoint on your application side that handles the status of the message.
 
@@ -67,8 +67,8 @@ Remember: All dates are in UTC.
 # use this command to emulate a webhopok
 
 curl --request POST "https://your-server.com/webhooks/smso" \
-  -d "body=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" \
-  -d "replied_to=sent" \
+  -d "body=Nu raspunzi la sms..." \
+  -d "replied_to=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" \
   -d "received_at=2019-05-01 12:30:09" \
   -d "sender['number']=+40722334455" \
   -d "sender['mcc']=226" \
@@ -85,7 +85,7 @@ curl --request POST "https://your-server.com/webhooks/smso" \
 // soon 
 ```
 
-> The above command returns JSON structured like this:
+> You can use an app like https://postb.in/ to test incoming requests.
 
 ```json
 
@@ -107,14 +107,14 @@ Remember that webhooks can be set up either in your team's account or per messag
 
 Parameter           | Can be empty? | Description
 ---------           | ------- | -----------
-body                | No | Contents of the message
+body                | Yess | Contents of the message
 replied_to          | Yes | Uuid of the message that the number received and is now responding to
 received_at         | No | Time the message was received
 sender['number']    | No | Sender number in E.164 Format.	
 sender['mcc']       | No | Mobile Country Code
 sender['mnc']       | No | Mobile Network Code
 
-<aside class="success">
+<aside class="success"> 
 Remember: All dates are in UTC. 
 </aside>
   

@@ -19,7 +19,7 @@ $request = $client->request('GET', 'https://app.smso.ro/api/v1/senders', [
 ```
 
 ```javascript
-// soon 
+// nothing yet 
 ```
 
 > The above command returns JSON structured like this:

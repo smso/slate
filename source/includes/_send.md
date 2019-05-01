@@ -4,7 +4,7 @@
 
 ```shell
 
-curl --request POST --header 'x-authorization: smso-api-key' "https://app.smso.ro/api/v1/send" \
+curl --request POST --header 'X-Authorization: smso-api-key' "https://app.smso.ro/api/v1/send" \
   -d "sender=1" \
   -d "to=+40722334455" \
   -d "body=Testing"
@@ -32,7 +32,7 @@ var_dump(json_decode($request->getBody()->getContents()));
 ```
 
 ```javascript
-// soon 
+// nothing yet
 ```
 
 > The above command returns JSON structured like this:
