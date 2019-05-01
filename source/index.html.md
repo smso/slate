@@ -15,6 +15,7 @@ includes:
   - auth
   - senders
   - send
+  - webhooks
   - errors
 
 search: true
