@@ -59,7 +59,7 @@ sender            | Yes | The ID of the sender
 body              | Yes | Contents of the message
 webhook           | No  | Identical to webhook_status, preserved for legacy purposes
 webhook_status    | No  | Webhook for receiving the SMS message status
-webhook_received  | No  | Webhook for receiving the SMS message reply
+webhook_responses | No  | Webhook for receiving the SMS message reply
 
 <aside class="success">
 Remember — check the webhook for the complete detals on the message. [Webhook documentation](#webhooks)
