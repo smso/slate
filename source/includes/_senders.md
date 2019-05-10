@@ -58,5 +58,5 @@ This endpoint retrieves all the available senders in the the team.
 None
 
 <aside class="success">
-Remember — a happy message is an authenticated message!
+Remember — a happy request is an authenticated request!
 </aside>  

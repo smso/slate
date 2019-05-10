@@ -14,8 +14,7 @@ toc_footers:
 includes:
   - auth
   - senders
-  - send
-  - status
+  - messages
   - status-details
   - webhooks
   - errors

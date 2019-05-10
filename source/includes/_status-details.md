@@ -33,8 +33,8 @@ undelivered | Yes | The message was undelivered.
 expired | Yes | The message is expired. 
 error | Yes | There was an error sending the message.
 
-<aside class="success">
-Remember — check the webhook for the complete detals on the message.
+<aside class="notice">
+Keep in mind, if you get a final status, you can discad other updates.  
 </aside>  
 
 
