@@ -230,23 +230,37 @@
             <a href="#senders" class="toc-h1 toc-link" data-title="Senders">Senders</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-the-available-senders" class="toc-h2 toc-link" data-title="Get The Available Senders">Get The Available Senders</a>
+                    <a href="#get-the-list-of-available-senders" class="toc-h2 toc-link" data-title="Get the list of available senders">Get the list of available senders</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#send-a-sms-message" class="toc-h1 toc-link" data-title="Send A SMS message">Send A SMS message</a>
+            <a href="#sending-a-messages" class="toc-h1 toc-link" data-title="Sending a messages">Sending a messages</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#sending-a-message" class="toc-h2 toc-link" data-title="Sending a message">Sending a message</a>
+                    <a href="#http-request" class="toc-h2 toc-link" data-title="HTTP Request">HTTP Request</a>
+                  </li>
+                  <li>
+                    <a href="#query-parameters" class="toc-h2 toc-link" data-title="Query Parameters">Query Parameters</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#check-message-status" class="toc-h1 toc-link" data-title="Check Message Status">Check Message Status</a>
+            <a href="#check-the-message-status" class="toc-h1 toc-link" data-title="Check the message status">Check the message status</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#check-the-status-of-a-sent-message" class="toc-h2 toc-link" data-title="Check the status of a sent message">Check the status of a sent message</a>
+                    <a href="#http-request" class="toc-h2 toc-link" data-title="HTTP Request">HTTP Request</a>
+                  </li>
+                  <li>
+                    <a href="#query-parameters" class="toc-h2 toc-link" data-title="Query Parameters">Query Parameters</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#message-statuses" class="toc-h1 toc-link" data-title="Message Statuses">Message Statuses</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#status-descriptions" class="toc-h2 toc-link" data-title="Status Descriptions">Status Descriptions</a>
                   </li>
               </ul>
           </li>
@@ -326,7 +340,9 @@ curl -H <span class="s2">"X-Authorization: smso-api-key"</span>  <span class="s2
 <aside class="notice">
 You must replace <code>API-KEY</code> with your personal API key.
 </aside>
-<h1 id='senders'>Senders</h1><h2 id='get-the-available-senders'>Get The Available Senders</h2><pre class="highlight plaintext"><code>curl -H "X-Authorization: smso-api-key"  "https://app.smso.ro/api/v1/senders" 
+<h1 id='senders'>Senders</h1><h2 id='get-the-list-of-available-senders'>Get the list of available senders</h2><pre class="highlight plaintext"><code>
+curl -H "X-Authorization: smso-api-key"  "https://app.smso.ro/api/v1/senders" 
+
 </code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">GuzzleHttp\Client</span><span class="p">;</span>
 
@@ -369,12 +385,11 @@ You must replace <code>API-KEY</code> with your personal API key.
 <aside class="success">
 Remember — a happy message is an authenticated message!
 </aside>  
-<h1 id='send-a-sms-message'>Send A SMS message</h1><h2 id='sending-a-message'>Sending a message</h2><pre class="highlight shell tab-shell"><code>
+<h1 id='sending-a-messages'>Sending a messages</h1><pre class="highlight shell tab-shell"><code>
 curl --request POST --header <span class="s1">'X-Authorization: smso-api-key'</span> <span class="s2">"https://app.smso.ro/api/v1/send"</span> <span class="se">\</span>
   -d <span class="s2">"sender=1"</span> <span class="se">\</span>
   -d <span class="s2">"to=+40722334455"</span> <span class="se">\</span>
   -d <span class="s2">"body=Testing"</span>
-
 
 </code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">GuzzleHttp\Client</span><span class="p">;</span>
@@ -448,20 +463,20 @@ curl --request POST --header <span class="s1">'X-Authorization: smso-api-key'</s
 <aside class="success">
 Remember — check the webhook for the complete detals on the message. [Webhook documentation](#webhooks)
 </aside>  
-<h1 id='check-message-status'>Check Message Status</h1><h2 id='check-the-status-of-a-sent-message'>Check the status of a sent message</h2><pre class="highlight shell tab-shell"><code>
+<h1 id='check-the-message-status'>Check the message status</h1><pre class="highlight shell tab-shell"><code>
 curl --request POST <span class="s2">"https://app.smso.ro/api/v1/status"</span> <span class="se">\</span>
   -d <span class="s2">"responseToken=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span>
 
 // also GET  
 curl <span class="s2">"https://app.smso.ro/api/v1/status?responseToken=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span>
 </code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">GuzzleHttp\Client</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">GuzzleHttp\Client</span><span class="p">;</span><span class="nx">s</span>
 
 <span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client</span><span class="p">;</span>
 
 <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span> <span class="s1">'https://app.smso.ro/api/v1/status?responseToken=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'</span><span class="p">);</span>
-
-<span class="nv">$request</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span> <span class="s1">'https://app.smso.ro/api/v1/status'</span><span class="p">,</span> <span class="p">[</span>
+<span class="c1">// also POST  
+</span><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span> <span class="s1">'https://app.smso.ro/api/v1/status'</span><span class="p">,</span> <span class="p">[</span>
           <span class="s1">'form_params'</span> <span class="o">=&gt;</span> <span class="p">[</span>
               <span class="s1">'responseToken'</span> <span class="o">=&gt;</span> <span class="s1">'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'</span><span class="p">,</span>
           <span class="p">],</span>
@@ -508,10 +523,65 @@ curl <span class="s2">"https://app.smso.ro/api/v1/status?responseToken=aaaaaaaa-
 <aside class="notice">
 No authentifications is required for checking the status.
 </aside>  
+<h1 id='message-statuses'>Message Statuses</h1><pre class="highlight shell tab-shell"><code>// nothing
+</code></pre><pre class="highlight php tab-php"><code>// nothing
+</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// nothing</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="err">//</span><span class="w"> </span><span class="err">nothing</span><span class="w">
+</span></code></pre>
+<p>Message status description </p>
+
+<p>The message can take a number of states.</p>
+<h3 id='status-descriptions'>Status Descriptions</h3>
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Final</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>dispatched</td>
+<td>No</td>
+<td>The message is in the process of sending to the network. (rarely seen)</td>
+</tr>
+<tr>
+<td>sent</td>
+<td>No</td>
+<td>The message has been sent to the network.</td>
+</tr>
+<tr>
+<td>delivered</td>
+<td>Yes</td>
+<td>The message has been delivered to the phone.</td>
+</tr>
+<tr>
+<td>undelivered</td>
+<td>Yes</td>
+<td>The message was undelivered.</td>
+</tr>
+<tr>
+<td>expired</td>
+<td>Yes</td>
+<td>The message is expired.</td>
+</tr>
+<tr>
+<td>error</td>
+<td>Yes</td>
+<td>There was an error sending the message.</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+Remember — check the webhook for the complete detals on the message.
+</aside>  
 <h1 id='webhooks'>Webhooks</h1><h2 id='message-status'>Message status</h2><pre class="highlight shell tab-shell"><code>
 <span class="c"># use this command to simulate an incomming request to test yout webhook</span>
 
-curl --request POST <span class="s2">"https://your-server.com/webhooks/smso"</span> <span class="se">\</span>
+curl --request POST <span class="s2">"https://your-server.com/your-webhook-endpoint"</span> <span class="se">\</span>
   -d <span class="s2">"uuid=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span> <span class="se">\</span>
   -d <span class="s2">"status=sent"</span> <span class="se">\</span>
   -d <span class="s2">"sent_at=2019-05-01 12:30:09"</span> <span class="se">\</span>
@@ -529,7 +599,7 @@ curl --request POST <span class="s2">"https://your-server.com/webhooks/smso"</sp
 </span></code></pre>
 <p>This is an endpoint on your application side that handles the status of the message.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://your-server.com/webhooks/smso</code></p>
+<p><code>POST https://your-server.com/your-webhook-endpoint</code></p>
 
 <aside class="notice">
 Remember that webhooks can be set up either in your team's account or per message sent.
@@ -586,7 +656,7 @@ Remember: All dates are in UTC.
 <h2 id='receiving-messages'>Receiving messages</h2><pre class="highlight shell tab-shell"><code>
 <span class="c"># use this command to emulate a webhopok</span>
 
-curl --request POST <span class="s2">"https://your-server.com/webhooks/smso"</span> <span class="se">\</span>
+curl --request POST <span class="s2">"https://your-server.com/your-webhook-endpoint"</span> <span class="se">\</span>
   -d <span class="s2">"body=Nu raspunzi la sms..."</span> <span class="se">\</span>
   -d <span class="s2">"replied_to=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span> <span class="se">\</span>
   -d <span class="s2">"received_at=2019-05-01 12:30:09"</span> <span class="se">\</span>
@@ -605,7 +675,7 @@ curl --request POST <span class="s2">"https://your-server.com/webhooks/smso"</sp
 </span></code></pre>
 <p>This is an endpoint on your application side that handles receiving messages.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>POST https://your-server.com/webhooks/smso</code></p>
+<p><code>POST https://your-server.com/your-webhook-endpoint</code></p>
 
 <aside class="notice">
 Remember that webhooks can be set up either in your team's account or per message sent.
