@@ -1,6 +1,4 @@
-# Check Message Status
-
-## Check the status of a sent message
+# Check the message status
 
 ```shell
 
@@ -13,12 +11,12 @@ curl "https://app.smso.ro/api/v1/status?responseToken=aaaaaaaa-bbbb-cccc-dddd-ee
 
 ```php
 <?php
-use GuzzleHttp\Client;
+use GuzzleHttp\Client;s
 
 $client = new Client;
 
 $request = $client->request('GET', 'https://app.smso.ro/api/v1/status?responseToken=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee');
-
+// also POST  
 $request = $client->request('POST', 'https://app.smso.ro/api/v1/status', [
           'form_params' => [
               'responseToken' => 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',

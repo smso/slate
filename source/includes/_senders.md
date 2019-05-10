@@ -1,9 +1,11 @@
 # Senders
 
-## Get The Available Senders
+## Get the list of available senders
 
 ```curl
+
 curl -H "X-Authorization: smso-api-key"  "https://app.smso.ro/api/v1/senders" 
+
 ```
 
 ```php

@@ -1,6 +1,4 @@
-# Send A SMS message
-
-## Sending a message
+# Sending a messages
 
 ```shell
 
@@ -8,8 +6,7 @@ curl --request POST --header 'X-Authorization: smso-api-key' "https://app.smso.r
   -d "sender=1" \
   -d "to=+40722334455" \
   -d "body=Testing"
-     
-  
+
 ```
 
 ```php

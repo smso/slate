@@ -6,7 +6,7 @@
 
 # use this command to simulate an incomming request to test yout webhook
 
-curl --request POST "https://your-server.com/webhooks/smso" \
+curl --request POST "https://your-server.com/your-webhook-endpoint" \
   -d "uuid=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" \
   -d "status=sent" \
   -d "sent_at=2019-05-01 12:30:09" \
@@ -35,7 +35,7 @@ This is an endpoint on your application side that handles the status of the mess
 
 ### HTTP Request
 
-`POST https://your-server.com/webhooks/smso`
+`POST https://your-server.com/your-webhook-endpoint`
 
 <aside class="notice">
 Remember that webhooks can be set up either in your team's account or per message sent.
@@ -66,7 +66,7 @@ Remember: All dates are in UTC.
 
 # use this command to emulate a webhopok
 
-curl --request POST "https://your-server.com/webhooks/smso" \
+curl --request POST "https://your-server.com/your-webhook-endpoint" \
   -d "body=Nu raspunzi la sms..." \
   -d "replied_to=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" \
   -d "received_at=2019-05-01 12:30:09" \
@@ -95,7 +95,7 @@ This is an endpoint on your application side that handles receiving messages.
 
 ### HTTP Request
 
-`POST https://your-server.com/webhooks/smso`
+`POST https://your-server.com/your-webhook-endpoint`
 
 <aside class="notice">
 Remember that webhooks can be set up either in your team's account or per message sent.

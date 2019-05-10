@@ -16,6 +16,7 @@ includes:
   - senders
   - send
   - status
+  - status-details
   - webhooks
   - errors
 
