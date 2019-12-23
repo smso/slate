@@ -241,9 +241,6 @@
                     <a href="#sending-a-message" class="toc-h2 toc-link" data-title="Sending a message">Sending a message</a>
                   </li>
                   <li>
-                    <a href="#sending-a-message-via-sim" class="toc-h2 toc-link" data-title="Sending a message via SIM">Sending a message via SIM</a>
-                  </li>
-                  <li>
                     <a href="#checking-the-message-status" class="toc-h2 toc-link" data-title="Checking the message status">Checking the message status</a>
                   </li>
               </ul>
@@ -288,14 +285,18 @@
 <p>To authorize, use this code:</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl -H <span class="s2">"X-Authorization: smso-api-key"</span>  <span class="s2">"https://app.smso.ro/api/v1/"</span> 
+curl -H <span class="s2">"X-Authorization: API-KEY"</span>  <span class="s2">"https://app.smso.ro/api/v1/"</span> 
+
+<span class="c"># full example as query string</span>
+curl <span class="s2">"https://app.smso.ro/api/v1/send?sender=4&amp;to=0722334455&amp;body=Message%20Body&amp;apiKey=API-KEY"</span>
+
 </code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 
 <span class="c1">// via file_get_contents
 </span><span class="nv">$opts</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">"http"</span> <span class="o">=&gt;</span> <span class="p">[</span>
         <span class="s2">"method"</span> <span class="o">=&gt;</span> <span class="s2">"POST"</span><span class="p">,</span>
-        <span class="s2">"header"</span> <span class="o">=&gt;</span> <span class="s2">"X-Authorization: smso-api-key"</span>
+        <span class="s2">"header"</span> <span class="o">=&gt;</span> <span class="s2">"X-Authorization: API-KEY"</span>
     <span class="p">]</span>
 <span class="p">];</span>
 
@@ -311,7 +312,7 @@ curl -H <span class="s2">"X-Authorization: smso-api-key"</span>  <span class="s2
 <span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client</span><span class="p">;</span>
 <span class="nv">$request</span> <span class="o">=</span>  <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span> <span class="s1">'https://app.smso.ro/api/v1/'</span><span class="p">,</span> <span class="p">[</span>
     <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
-        <span class="s1">'X-Authorization'</span> <span class="o">=&gt;</span> <span class="s1">'nece'</span><span class="p">,</span>
+        <span class="s1">'X-Authorization'</span> <span class="o">=&gt;</span> <span class="s1">'API-KEY'</span><span class="p">,</span>
     <span class="p">],</span>
 <span class="p">]);</span>
 
@@ -320,20 +321,23 @@ curl -H <span class="s2">"X-Authorization: smso-api-key"</span>  <span class="s2
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// soon</span>
 </code></pre>
 <blockquote>
-<p>Make sure to replace <code>API-KEY</code> with your API key.</p>
+<p>Make sure to replace <code>API-KEY</code> with your Tean&#39;s API key from our <a href="https://app.smso.ro/developers/api">developer page</a>.</p>
 </blockquote>
 
 <p>SMSO uses API keys to allow access to the API. You can register a new SMSO API key at our <a href="https://app.smso.ro/developers/api">developer page</a>.</p>
 
 <p>SMSO expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
 
-<p><code>X-Authorization: smso-api-key</code></p>
+<ol>
+<li>Via a header: <code>X-Authorization: API-KEY</code></li>
+<li>Via a query string, either POST OR GET, just append it to the URL like <em>&amp;apiKey=API-KEY</em></li>
+</ol>
 
 <aside class="notice">
 You must replace <code>API-KEY</code> with your personal API key.
 </aside>
 <h1 id='senders'>Senders</h1><h2 id='get-the-list-of-available-senders'>Get the list of available senders</h2><pre class="highlight plaintext"><code>
-curl -H "X-Authorization: smso-api-key"  "https://app.smso.ro/api/v1/senders" 
+curl -H "X-Authorization: API-KEY"  "https://app.smso.ro/api/v1/senders" 
 
 </code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">GuzzleHttp\Client</span><span class="p">;</span>
@@ -341,7 +345,7 @@ curl -H "X-Authorization: smso-api-key"  "https://app.smso.ro/api/v1/senders"
 <span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client</span><span class="p">;</span>
 <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span> <span class="s1">'https://app.smso.ro/api/v1/senders'</span><span class="p">,</span> <span class="p">[</span>
         <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">'X-Authorization'</span> <span class="o">=&gt;</span> <span class="s1">'smso-api-key'</span><span class="p">,</span>
+            <span class="s1">'X-Authorization'</span> <span class="o">=&gt;</span> <span class="s1">'API-KEY'</span><span class="p">,</span>
         <span class="p">],</span>
     <span class="p">]);</span>
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// nothing yet </span>
@@ -455,78 +459,68 @@ curl --request POST --header <span class="s1">'X-Authorization: smso-api-key'</s
 <aside class="success">
 Remember — check the webhook for the complete detals on the message. [Webhook documentation](#webhooks)
 </aside>  
-<h2 id='sending-a-message-via-sim'>Sending a message via SIM</h2><pre class="highlight shell tab-shell"><code>
-curl --request POST --header <span class="s1">'X-Authorization: smso-api-key'</span> <span class="s2">"https://app.smso.ro/api/v1/send/sim </span><span class="se">\</span><span class="s2">
-  -d "</span><span class="nv">to</span><span class="o">=</span>+40722334455<span class="s2">" </span><span class="se">\</span><span class="s2">
-  -d "</span><span class="nv">body</span><span class="o">=</span>Testing<span class="s2">"s
 
-</span></code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
-<span class="k">use</span> <span class="nx">GuzzleHttp\Client</span><span class="p">;</span>
+<!-- ## Sending a message via SIM
 
-<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client</span><span class="p">;</span>
-<span class="nv">$request</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span> <span class="s1">'https://app.smso.ro/api/v1/send'</span><span class="p">,</span> <span class="p">[</span>
-        <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">'X-Authorization'</span> <span class="o">=&gt;</span> <span class="s1">'smso-api-key'</span><span class="p">,</span>
-        <span class="p">],</span>
-       <span class="s1">'form_params'</span> <span class="o">=&gt;</span> <span class="p">[</span>
-           <span class="s1">'to'</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
-           <span class="s1">'body'</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
-           <span class="s1">'sender'</span> <span class="o">=&gt;</span> <span class="s1">''</span><span class="p">,</span>
-       <span class="p">],</span>
-<span class="p">]);</span>
+```shell
 
-<span class="nb">var_dump</span><span class="p">(</span><span class="nb">json_decode</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getBody</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getContents</span><span class="p">()));</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// nothing yet</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"responseToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>This endpoint sends an SMS Message with the predefined sender of SIM</p>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>POST https://app.smso.ro/api/v1/send/sim</code></p>
-<h3 id='query-parameters-2'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Required?</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>to</td>
-<td>Yes</td>
-<td>E.164 Format. The + is optional</td>
-</tr>
-<tr>
-<td>body</td>
-<td>Yes</td>
-<td>Contents of the message</td>
-</tr>
-<tr>
-<td>webhook</td>
-<td>No</td>
-<td>Identical to webhook_status, preserved for legacy purposes</td>
-</tr>
-<tr>
-<td>webhook_status</td>
-<td>No</td>
-<td>Webhook for receiving the SMS message status</td>
-</tr>
-<tr>
-<td>webhook_responses</td>
-<td>No</td>
-<td>Webhook for receiving the SMS message reply</td>
-</tr>
-</tbody></table>
+curl --request POST --header 'X-Authorization: smso-api-key' "https://app.smso.ro/api/v1/send/sim \
+  -d "to=+40722334455" \
+  -d "body=Testing"s
+
+```
+
+```php
+<?php
+use GuzzleHttp\Client;
+
+$client = new Client;
+$request = $client->request('POST', 'https://app.smso.ro/api/v1/send', [
+        'headers' => [
+            'X-Authorization' => 'smso-api-key',
+        ],
+       'form_params' => [
+           'to' => '',
+           'body' => '',
+           'sender' => '',
+       ],
+]);
+
+var_dump(json_decode($request->getBody()->getContents()));
+```
+
+```javascript
+// nothing yet
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "status": 200,
+  "responseToken": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+}
+```
+
+This endpoint sends an SMS Message with the predefined sender of SIM
+
+### HTTP Request
+
+`POST https://app.smso.ro/api/v1/send/sim`
+
+### Query Parameters
+
+Parameter | Required? | Description
+--------- | ------- | -----------
+to                | Yes | E.164 Format. The + is optional   
+body              | Yes | Contents of the message
+webhook           | No  | Identical to webhook_status, preserved for legacy purposes
+webhook_status    | No  | Webhook for receiving the SMS message status
+webhook_responses | No  | Webhook for receiving the SMS message reply
 
 <aside class="success">
 Remember — check the webhook for the complete detals on the message. [Webhook documentation](#webhooks)
-</aside>  
+</aside>   -->
 <h2 id='checking-the-message-status'>Checking the message status</h2><pre class="highlight shell tab-shell"><code>
 curl --request POST <span class="s2">"https://app.smso.ro/api/v1/status"</span> <span class="se">\</span>
   -d <span class="s2">"responseToken=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span>
@@ -567,9 +561,9 @@ curl <span class="s2">"https://app.smso.ro/api/v1/status?responseToken=aaaaaaaa-
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint sends an SMS Message</p>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='http-request-2'>HTTP Request</h3>
 <p><code>POST or GET https://app.smso.ro/api/v1/status</code></p>
-<h3 id='query-parameters-3'>Query Parameters</h3>
+<h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -755,7 +749,7 @@ Remember that webhooks can be set up either in your team's account or per messag
 </thead><tbody>
 <tr>
 <td>body</td>
-<td>Yess</td>
+<td>Yes</td>
 <td>Contents of the message</td>
 </tr>
 <tr>
