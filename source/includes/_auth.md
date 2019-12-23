@@ -5,7 +5,11 @@
 
 ```shell
 # With shell, you can just pass the correct header with each request
-curl -H "X-Authorization: smso-api-key"  "https://app.smso.ro/api/v1/" 
+curl -H "X-Authorization: API-KEY"  "https://app.smso.ro/api/v1/" 
+
+# full example as query string
+curl "https://app.smso.ro/api/v1/send?sender=4&to=0722334455&body=Message%20Body&apiKey=API-KEY"
+
 ```
 
 ```php
@@ -15,7 +19,7 @@ curl -H "X-Authorization: smso-api-key"  "https://app.smso.ro/api/v1/"
 $opts = [
     "http" => [
         "method" => "POST",
-        "header" => "X-Authorization: smso-api-key"
+        "header" => "X-Authorization: API-KEY"
     ]
 ];
 
@@ -31,7 +35,7 @@ use GuzzleHttp\Client;
 $client = new Client;
 $request =  $client->request('GET', 'https://app.smso.ro/api/v1/', [
     'headers' => [
-        'X-Authorization' => 'nece',
+        'X-Authorization' => 'API-KEY',
     ],
 ]);
 
@@ -43,13 +47,16 @@ var_dump(json_decode($request->getBody()->getContents()));
 // soon
 ```
 
-> Make sure to replace `API-KEY` with your API key.
+> Make sure to replace `API-KEY` with your Tean's API key from our [developer page](https://app.smso.ro/developers/api).
 
 SMSO uses API keys to allow access to the API. You can register a new SMSO API key at our [developer page](https://app.smso.ro/developers/api).
 
 SMSO expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-`X-Authorization: smso-api-key`
+1. Via a header: `X-Authorization: API-KEY`
+2. Via a query string, either POST OR GET, just append it to the URL like *&apiKey=API-KEY*
+
+
 
 <aside class="notice">
 You must replace <code>API-KEY</code> with your personal API key.

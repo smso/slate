@@ -64,7 +64,7 @@ webhook_responses | No  | Webhook for receiving the SMS message reply
 Remember — check the webhook for the complete detals on the message. [Webhook documentation](#webhooks)
 </aside>  
 
-## Sending a message via SIM
+<!-- ## Sending a message via SIM
 
 ```shell
 
@@ -124,7 +124,7 @@ webhook_responses | No  | Webhook for receiving the SMS message reply
 
 <aside class="success">
 Remember — check the webhook for the complete detals on the message. [Webhook documentation](#webhooks)
-</aside>  
+</aside>   -->
 
 ## Checking the message status
 

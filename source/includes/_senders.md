@@ -4,7 +4,7 @@
 
 ```curl
 
-curl -H "X-Authorization: smso-api-key"  "https://app.smso.ro/api/v1/senders" 
+curl -H "X-Authorization: API-KEY"  "https://app.smso.ro/api/v1/senders" 
 
 ```
 
@@ -15,7 +15,7 @@ use GuzzleHttp\Client;
 $client = new Client;
 $request = $client->request('GET', 'https://app.smso.ro/api/v1/senders', [
         'headers' => [
-            'X-Authorization' => 'smso-api-key',
+            'X-Authorization' => 'API-KEY',
         ],
     ]);
 ```

@@ -107,7 +107,7 @@ Remember that webhooks can be set up either in your team's account or per messag
 
 Parameter           | Can be empty? | Description
 ---------           | ------- | -----------
-body                | Yess | Contents of the message
+body                | Yes | Contents of the message
 replied_to          | Yes | Uuid of the message that the number received and is now responding to
 received_at         | No | Time the message was received
 sender['number']    | No | Sender number in E.164 Format.	

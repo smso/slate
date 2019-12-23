@@ -4,7 +4,7 @@
 
 ```shell
 
-curl --request POST --header 'x-authorization: smso-api-key' "https://app.smso.ro/api/v1/send" \
+curl --request POST --header 'x-authorization: API-KEY' "https://app.smso.ro/api/v1/send" \
   -d "sender=1" \
   -d "to=40726459188" \
   -d "body=Testing"
@@ -17,7 +17,7 @@ use GuzzleHttp\Client;
 $client = new Client;
 $request = $client->request('POST', 'https://app.smso.ro/api/v1/send', [
         'headers' => [
-            'X-Authorization' => 'smso-api-key',
+            'X-Authorization' => 'API-KEY',
         ],
        'form_params' => [
            'to' => '',
