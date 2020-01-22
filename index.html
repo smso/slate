@@ -383,9 +383,9 @@ Remember — a happy request is an authenticated request!
 </aside>  
 <h1 id='messages'>Messages</h1><h2 id='sending-a-message'>Sending a message</h2><pre class="highlight shell tab-shell"><code>
 curl --request POST --header <span class="s1">'X-Authorization: smso-api-key'</span> <span class="s2">"https://app.smso.ro/api/v1/send"</span> <span class="se">\</span>
-  -d <span class="s2">"sender=1"</span> <span class="se">\</span>
+  -d <span class="s2">"sender=4"</span> <span class="se">\</span>
   -d <span class="s2">"to=+40722334455"</span> <span class="se">\</span>
-  -d <span class="s2">"body=Testing"</span>s
+  -d <span class="s2">"body=Testing"</span>
 
 </code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">GuzzleHttp\Client</span><span class="p">;</span>
