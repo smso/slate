@@ -28,20 +28,10 @@ $request = $client->request('GET', 'https://app.smso.ro/api/v1/senders', [
 
 ```json
 [
-   {  
-     "id":2,
-     "name":"Notify",
-     "pricePerMessage":3
-    },
    {
       "id":4,
       "name":"1847",
       "pricePerMessage":3
-   },
-   {
-      "id":36,
-      "name":"0722334455",
-      "pricePerMessage":2
    },
    ...
 ]
