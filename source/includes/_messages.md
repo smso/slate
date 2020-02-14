@@ -5,9 +5,9 @@
 ```shell
 
 curl --request POST --header 'X-Authorization: smso-api-key' "https://app.smso.ro/api/v1/send" \
-  -d "sender=1" \
+  -d "sender=4" \
   -d "to=+40722334455" \
-  -d "body=Testing"s
+  -d "body=Testing"
 
 ```
 
