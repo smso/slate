@@ -18,6 +18,7 @@ includes:
   - status-details
   - webhooks
   - errors
+  - credit-check
 
 search: true
 ---
