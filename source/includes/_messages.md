@@ -56,6 +56,7 @@ Parameter | Required? | Description
 to                | Yes | E.164 Format. The + is optional	
 sender            | Yes | The ID of the sender
 body              | Yes | Contents of the message
+type              | No  | Type of the message. Can be 'marketing' or 'transactional', based on the type of communication the message is intended for. Used to filter out unsubscribed users when set to 'marketing'.
 webhook           | No  | Identical to webhook_status, preserved for legacy purposes
 webhook_status    | No  | Webhook for receiving the SMS message status
 webhook_responses | No  | Webhook for receiving the SMS message reply
