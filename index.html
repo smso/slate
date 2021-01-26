@@ -438,6 +438,11 @@ curl --request POST --header <span class="s1">'X-Authorization: smso-api-key'</s
 <td>Contents of the message</td>
 </tr>
 <tr>
+<td>type</td>
+<td>No</td>
+<td>Type of the message. Can be &#39;marketing&#39; or &#39;transactional&#39;, based on the type of communication the message is intended for. Used to filter out unsubscribed users when set to &#39;marketing&#39;.</td>
+</tr>
+<tr>
 <td>webhook</td>
 <td>No</td>
 <td>Identical to webhook_status, preserved for legacy purposes</td>
