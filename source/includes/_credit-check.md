@@ -39,7 +39,7 @@ This endpoint returns the remaining credit for the team
 
 ### HTTP Request
 
-`GET https://app.smso.ro/api/v1/check-credit`
+`GET https://app.smso.ro/api/v1/credit-check`
 
 ### Query Parameters
 
