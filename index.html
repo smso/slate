@@ -408,7 +408,8 @@ curl --request POST --header <span class="s1">'X-Authorization: smso-api-key'</s
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"responseToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span><span class="w">
+  </span><span class="s2">"responseToken"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"transaction_cost"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">3.5</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="err">eurocents</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint sends an SMS Message</p>
@@ -456,6 +457,11 @@ curl --request POST --header <span class="s1">'X-Authorization: smso-api-key'</s
 <td>webhook_responses</td>
 <td>No</td>
 <td>Webhook for receiving the SMS message reply</td>
+</tr>
+<tr>
+<td>ttl</td>
+<td>No</td>
+<td>Message time to live, number of seconds from creation (min 60)</td>
 </tr>
 </tbody></table>
 
