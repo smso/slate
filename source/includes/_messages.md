@@ -39,7 +39,8 @@ var_dump(json_decode($request->getBody()->getContents()));
 ```json
 {
   "status": 200,
-  "responseToken": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+  "responseToken": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+  "transaction_cost" : 3.5 // in eurocents
 }
 ```
 
@@ -60,6 +61,7 @@ type              | No  | Type of the message. Can be 'marketing' or 'transactio
 webhook           | No  | Identical to webhook_status, preserved for legacy purposes
 webhook_status    | No  | Webhook for receiving the SMS message status
 webhook_responses | No  | Webhook for receiving the SMS message reply
+ttl               | No  | Message time to live, number of seconds from creation (min 60)
 
 <aside class="success">
 Remember — check the webhook for the complete detals on the message. [Webhook documentation](#webhooks)
