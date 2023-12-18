@@ -293,7 +293,7 @@
 <p>To authorize, use this code:</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl -H <span class="s2">"X-Authorization: API-KEY"</span>  <span class="s2">"https://app.smso.ro/api/v1/"</span> 
+curl -H <span class="s2">"X-Authorization: API-KEY"</span>  <span class="s2">"https://app.smso.ro/api/v1/"</span>
 
 <span class="c"># full example as query string</span>
 curl <span class="s2">"https://app.smso.ro/api/v1/send?sender=4&amp;to=0722334455&amp;body=Message%20Body&amp;apiKey=API-KEY"</span>
@@ -345,7 +345,7 @@ curl <span class="s2">"https://app.smso.ro/api/v1/send?sender=4&amp;to=072233445
 You must replace <code>API-KEY</code> with your personal API key.
 </aside>
 <h1 id='senders'>Senders</h1><h2 id='get-the-list-of-available-senders'>Get the list of available senders</h2><pre class="highlight plaintext"><code>
-curl -H "X-Authorization: API-KEY"  "https://app.smso.ro/api/v1/senders" 
+curl -H "X-Authorization: API-KEY"  "https://app.smso.ro/api/v1/senders"
 
 </code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">GuzzleHttp\Client</span><span class="p">;</span>
@@ -378,7 +378,7 @@ curl -H "X-Authorization: API-KEY"  "https://app.smso.ro/api/v1/senders"
 
 <aside class="success">
 Remember — a happy request is an authenticated request!
-</aside>  
+</aside>
 <h1 id='messages'>Messages</h1><h2 id='sending-a-message'>Sending a message</h2><pre class="highlight shell tab-shell"><code>
 curl --request POST --header <span class="s1">'X-Authorization: smso-api-key'</span> <span class="s2">"https://app.smso.ro/api/v1/send"</span> <span class="se">\</span>
   -d <span class="s2">"sender=4"</span> <span class="se">\</span>
@@ -441,7 +441,7 @@ curl --request POST --header <span class="s1">'X-Authorization: smso-api-key'</s
 <tr>
 <td>type</td>
 <td>No</td>
-<td>Type of the message. Can be &#39;marketing&#39; or &#39;transactional&#39;, based on the type of communication the message is intended for. Used to filter out unsubscribed users when set to &#39;marketing&#39;.</td>
+<td>Type of the message. Can be &#39;marketing&#39;, &#39;transactional&#39; or 'otp', based on the type of communication the message is intended for. Used to filter out unsubscribed users when set to &#39;marketing&#39;.</td>
 </tr>
 <tr>
 <td>webhook</td>
@@ -467,7 +467,7 @@ curl --request POST --header <span class="s1">'X-Authorization: smso-api-key'</s
 
 <aside class="success">
 Remember — check the webhook for the complete detals on the message. [Webhook documentation](#webhooks)
-</aside>  
+</aside>
 
 <!-- ## Sending a message via SIM
 
@@ -521,7 +521,7 @@ This endpoint sends an SMS Message with the predefined sender of SIM
 
 Parameter | Required? | Description
 --------- | ------- | -----------
-to                | Yes | E.164 Format. The + is optional   
+to                | Yes | E.164 Format. The + is optional
 body              | Yes | Contents of the message
 webhook           | No  | Identical to webhook_status, preserved for legacy purposes
 webhook_status    | No  | Webhook for receiving the SMS message status
@@ -534,7 +534,7 @@ Remember — check the webhook for the complete detals on the message. [Webhook 
 curl --request POST <span class="s2">"https://app.smso.ro/api/v1/status"</span> <span class="se">\</span>
   -d <span class="s2">"responseToken=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span>
 
-// also GET  
+// also GET
 curl <span class="s2">"https://app.smso.ro/api/v1/status?responseToken=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"</span>
 </code></pre><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
 <span class="k">use</span> <span class="nx">GuzzleHttp\Client</span><span class="p">;</span><span class="nx">s</span>
@@ -542,7 +542,7 @@ curl <span class="s2">"https://app.smso.ro/api/v1/status?responseToken=aaaaaaaa-
 <span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Client</span><span class="p">;</span>
 
 <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span> <span class="s1">'https://app.smso.ro/api/v1/status?responseToken=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'</span><span class="p">);</span>
-<span class="c1">// also POST  
+<span class="c1">// also POST
 </span><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span><span class="s1">'POST'</span><span class="p">,</span> <span class="s1">'https://app.smso.ro/api/v1/status'</span><span class="p">,</span> <span class="p">[</span>
           <span class="s1">'form_params'</span> <span class="o">=&gt;</span> <span class="p">[</span>
               <span class="s1">'responseToken'</span> <span class="o">=&gt;</span> <span class="s1">'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'</span><span class="p">,</span>
@@ -589,7 +589,7 @@ curl <span class="s2">"https://app.smso.ro/api/v1/status?responseToken=aaaaaaaa-
 
 <aside class="notice">
 No authentifications is required for checking the status.
-</aside>  
+</aside>
 <h1 id='message-statuses'>Message Statuses</h1><pre class="highlight shell tab-shell"><code>// nothing
 </code></pre><pre class="highlight php tab-php"><code>// nothing
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// nothing</span>
@@ -643,8 +643,8 @@ No authentifications is required for checking the status.
 </tbody></table>
 
 <aside class="notice">
-Keep in mind, if you get a final status, you can discad other updates.  
-</aside>  
+Keep in mind, if you get a final status, you can discad other updates.
+</aside>
 <h1 id='webhooks'>Webhooks</h1><h2 id='message-status'>Message status</h2><pre class="highlight shell tab-shell"><code>
 <span class="c"># use this command to simulate an incomming request to test yout webhook</span>
 
@@ -656,7 +656,7 @@ curl --request POST <span class="s2">"https://your-server.com/your-webhook-endpo
   -d <span class="s2">"receiver[number]=+40722334455"</span> <span class="se">\</span>
   -d <span class="s2">"receiver[mcc]=226"</span> <span class="se">\</span>
   -d <span class="s2">"receiver[mnc]=03"</span>
-</code></pre><pre class="highlight php tab-php"><code>// nothing yet 
+</code></pre><pre class="highlight php tab-php"><code>// nothing yet
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// nothing yet </span>
 </code></pre>
 <blockquote>
@@ -670,8 +670,8 @@ curl --request POST <span class="s2">"https://your-server.com/your-webhook-endpo
 
 <aside class="notice">
 Remember that webhooks can be set up either in your team's account or per message sent.
-</aside>  
- 
+</aside>
+
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -718,7 +718,7 @@ Remember that webhooks can be set up either in your team's account or per messag
 </tbody></table>
 
 <aside class="success">
-Remember: All dates are in UTC. 
+Remember: All dates are in UTC.
 </aside>
 <h2 id='receiving-messages'>Receiving messages</h2><pre class="highlight shell tab-shell"><code>
 <span class="c"># use this command to emulate a webhopok</span>
@@ -731,7 +731,7 @@ curl --request POST <span class="s2">"https://your-server.com/your-webhook-endpo
   -d <span class="s2">"sender['mcc']=226"</span> <span class="se">\</span>
   -d <span class="s2">"sender['mnc']=03"</span>
 
-</code></pre><pre class="highlight php tab-php"><code>// soon 
+</code></pre><pre class="highlight php tab-php"><code>// soon
 
 </code></pre><pre class="highlight javascript tab-javascript"><code><span class="c1">// soon </span>
 </code></pre>
@@ -746,8 +746,8 @@ curl --request POST <span class="s2">"https://your-server.com/your-webhook-endpo
 
 <aside class="notice">
 Remember that webhooks can be set up either in your team's account or per message sent.
-</aside>  
- 
+</aside>
+
 <h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -788,10 +788,10 @@ Remember that webhooks can be set up either in your team's account or per messag
 </tr>
 </tbody></table>
 
-<aside class="success"> 
-Remember: All dates are in UTC. 
+<aside class="success">
+Remember: All dates are in UTC.
 </aside>
-  
+
 <h1 id='errors'>Errors</h1>
 <p>The SMSO API uses the following error codes:</p>
 
@@ -838,7 +838,7 @@ curl --request GET --header <span class="s1">'X-Authorization: smso-api-key'</sp
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> 
+  </span><span class="s2">"status"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
   </span><span class="s2">"credit_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">4847.72</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
