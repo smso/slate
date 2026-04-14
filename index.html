@@ -822,6 +822,10 @@ Remember: All dates are in UTC.
 <td>402</td>
 <td>Payment Required -- You don&#39;t have enough credit to send the message.</td>
 </tr>
+<tr>
+<td>409</td>
+<td>Too Many Requests -- You&#39;ve exceeded the allowed number of messages per minute. Please slow down and retry after a short delay.</td>
+</tr>
 </tbody></table>
 <h1 id='credit'>Credit</h1><h2 id='checking-remaining-credit'>Checking remaining credit</h2><pre class="highlight shell tab-shell"><code>
 curl --request GET --header <span class="s1">'X-Authorization: smso-api-key'</span> <span class="s2">"https://app.smso.ro/api/v1/credit-check"</span>
