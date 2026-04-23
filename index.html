@@ -800,33 +800,57 @@ Remember: All dates are in UTC.
 <h1 id='errors'>Errors</h1>
 <p>The SMSO API uses the following error codes:</p>
 
-<table><thead>
-<tr>
-<th>Error Code</th>
-<th>Meaning</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>200</td>
-<td>OK</td>
-</tr>
-<tr>
-<td>400</td>
-<td>Bad Request -- Your request is invalid. See errors attached.</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
-</tr>
-<tr>
-<td>402</td>
-<td>Payment Required -- You don&#39;t have enough credit to send the message.</td>
-</tr>
-<tr>
-<td>409</td>
-<td>Too Many Requests -- You&#39;ve exceeded the allowed number of messages per minute. Please slow down and retry after a short delay.</td>
-</tr>
-</tbody></table>
+<table>
+  <thead>
+    <tr>
+      <th>Error Code</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td>OK</td>
+    </tr>
+
+    <tr>
+      <td>400</td>
+      <td>Your request is invalid. See errors attached.</td>
+    </tr>
+
+    <tr>
+      <td>401</td>
+      <td>Authorization required, API key is not valid.</td>
+    </tr>
+
+    <tr>
+      <td>402</td>
+      <td>You don&#39;t have enough credit to send the message.</td>
+    </tr>
+
+    <tr>
+      <td>403</td>
+      <td>The message contains blacklisted words.</td>
+    </tr>
+
+    <tr>
+      <td>405</td>
+      <td>User has unsubscribed from this service.</td>
+    </tr>
+
+    <tr>
+      <td>409</td>
+      <td>You&#39;ve exceeded the allowed number of messages per minute. Please slow down and retry after a short delay.</td>
+    </tr>
+
+    <tr>
+      <td>422</td>
+      <td>User is not allowed to send international messages.</td>
+    </tr>
+  </tbody>
+</table>
+
 <h1 id='credit'>Credit</h1><h2 id='checking-remaining-credit'>Checking remaining credit</h2><pre class="highlight shell tab-shell"><code>
 curl --request GET --header <span class="s1">'X-Authorization: smso-api-key'</span> <span class="s2">"https://app.smso.ro/api/v1/credit-check"</span>
 
