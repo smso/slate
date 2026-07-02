@@ -341,6 +341,12 @@ curl <span class="s2">"https://app.smso.ro/api/v1/send?sender=4&amp;to=072233445
 <li>Via a query string, either POST OR GET, just append it to the URL like <em>&amp;apiKey=API-KEY</em></li>
 </ol>
 
+<p>The Source App identifies the application or platform sending the SMS (eg. Magento/2.4.8). Can be sent either as a request header or as a body parameter:</p>
+<ol>
+<li>Via header: <code>X-Source-App: Magento/2.4.8</code></li>
+<li>Via body parameter <code>"source_app": "Magento/2.4.8"</code></li>
+</ol>
+
 <aside class="notice">
 You must replace <code>API-KEY</code> with your personal API key.
 </aside>
@@ -443,6 +449,12 @@ curl --request POST --header <span class="s1">'X-Authorization: smso-api-key'</s
 <td>No</td>
 <td>Type of the message. Can be &#39;marketing&#39;, &#39;transactional&#39; or &#39;otp&#39;, based on the type of communication the message is intended for. Used to filter out unsubscribed users when set to &#39;marketing&#39;.</td>
 </tr>
+<tr>
+<td>source_app</td>
+<td>No</td>
+<td>Identify the application or platform that sent the SMS (e.g., 'Magento/2.4.8'). The X-Source-App header takes precedence.</td>
+</tr>
+<tr>
 <tr>
 <td>webhook</td>
 <td>No</td>
